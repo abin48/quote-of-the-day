@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            html,body{width:100vw;height:100vh;
+                font-size: 20px;    
+                font-family: 'Courier New';
+                user-select: none;
+                overflow: hidden;}
+            h1,#qod,#author{text-align: center;padding: 3px;cursor: pointer;}
+            #content{   
+                        margin:10px 50px 0px 50px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items:center;}
+            h1:hover,#qod:hover{background-color: black;color:white}
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>#QoD</h1>
+        <h2 id="qod">hi</h2>
+        <h3 id="author">welcome</h3>
+    </div>
+    <script>
+        document.body.onclick = function(){
+            let bodycolor = document.body.style.backgroundColor;
+
+            if(bodycolor && bodycolor != 'white'){
+                document.body.style.backgroundColor = 'white';
+                document.body.style.color="black";
+            }else{
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+            }
+        }
+        
+        fetch("https://type.fit/api/quotes")
+        .then(function(response) {
+                return response.json();
+        })
+        .then(function(data) {
+        if(data.message = 'success'){
+            index = Math.floor(Math.random() * 1644)
+            document.getElementById("qod").innerHTML = data[index]['text']
+            document.getElementById("author").innerHTML = '-' + data[index]['author']
+        }else{console.log("limit reached")}
+        });
+
+    </script>
+</body>
+</html>
